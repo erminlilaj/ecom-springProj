@@ -4,6 +4,7 @@ import com.example.ecom_proj.model.Product;
 import com.example.ecom_proj.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -49,4 +50,19 @@ public ResponseEntity<?> addProduct(@RequestPart Product product, @RequestPart M
             return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
         }
 }
+//    @GetMapping("product/${productId}/image")
+//    public ResponseEntity<byte[]> getImageByProductId(@PathVariable int productId){
+//
+//        Product product= service.getProductbyId(productId);
+//        byte[] imageFile= product.getImageDate();
+//        return ResponseEntity.ok().contentType(MediaType.valueOf(product.getImageType())).body(imageFile);
+//    }
+    @GetMapping("/product/{productId}/image")
+    public ResponseEntity<byte[]> getImageByProductId(@PathVariable int productId) {
+        Product product = service.getProductbyId(productId);
+        byte[] imageFile = product.getImageDate();
+
+        return ResponseEntity.ok().contentType(MediaType.valueOf(product.getImageType())).body(imageFile);
+
+    }
 }
