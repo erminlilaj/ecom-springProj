@@ -37,4 +37,15 @@ public class ProductService {
     }
 
 
+    public Product updateProduct(int id, Product product, MultipartFile imageFile) throws IOException {
+
+        product.setImageName(imageFile.getOriginalFilename());
+        product.setImageType(imageFile.getContentType());
+        product.setImageDate(imageFile.getBytes());
+        return repo.save(product);
+    }
+
+    public void deleteProduct(int id) {
+        repo.deleteById(id);
+    }
 }
