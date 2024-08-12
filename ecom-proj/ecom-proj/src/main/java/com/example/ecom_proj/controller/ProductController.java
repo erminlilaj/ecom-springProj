@@ -98,4 +98,9 @@ public ResponseEntity<?> addProduct(@RequestPart Product product, @RequestPart M
 
     }
 
+    @GetMapping("/products/search")
+public ResponseEntity<List<Product>> searchProducts(@RequestParam String keyword){
+        List<Product> products=service.searchProducts(keyword);
+        return new ResponseEntity<>(products,HttpStatus.OK);
+    }
 }
